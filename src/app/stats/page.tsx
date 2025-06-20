@@ -41,23 +41,25 @@ export default function SearchLinkPage() {
   return (
     <section className={styles.SearchLinkPage}>
       <div className="wrapper">
-        <h1>Search Link Stats</h1>
-        <p>Enter your link slug to view its statistics.</p>
+        <div className={styles.SearchLinkBlock}>
+          <h1>Search link stats</h1>
+          <h2>Enter your link slug to view its statistics.</h2>
 
-        <form onSubmit={handleSearch} className={styles.form}>
-          <input
-            type="text"
-            placeholder="Enter link slug (e.g., abc123)"
-            value={slug}
-            onChange={(e) => setSlug(e.target.value)}
-            className={styles.input}
-          />
-          <button type="submit" disabled={loading} className={styles.button}>
-            {loading ? "Searching..." : "Search"}
-          </button>
-        </form>
+          <form onSubmit={handleSearch} className={styles.form}>
+            <input
+              type="text"
+              placeholder="Enter link slug (e.g., abc123)"
+              value={slug}
+              onChange={(e) => setSlug(e.target.value)}
+              className={styles.input}
+            />
+            <button type="submit" disabled={loading} className={styles.button}>
+              {loading ? "Searching..." : "Search"}
+            </button>
+          </form>
 
-        {error && <p className={styles.error}>{error}</p>}
+          {error && <p className={styles.error}>{error}</p>}
+        </div>
       </div>
     </section>
   );
