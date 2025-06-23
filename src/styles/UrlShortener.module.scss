@@ -24,7 +24,7 @@
   .form {
     display: flex;
     flex-direction: column;
-    padding: 16px;
+    padding: 24px;
     background-color: $white;
     margin-top: 40px;
     border-radius: 16px;
@@ -32,6 +32,10 @@
     .formGroup {
       display: flex;
       gap: 12px;
+
+      &:first-child {
+        margin-bottom: 12px;
+      }
     }
 
     .input {
