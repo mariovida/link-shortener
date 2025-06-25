@@ -8,6 +8,8 @@
 
 .statsPage {
   .statsPageBlock {
+    display: flex;
+    flex-direction: column;
     padding: 24px;
     color: $dark;
     background-color: $white;
@@ -15,6 +17,48 @@
 
     h1 {
       font-size: $fs-24;
+      margin-bottom: 24px;
+    }
+
+    .statsPageInfo {
+      margin-bottom: 24px;
+      border: 1px solid $gray;
+      border-radius: 12px;
+
+      p {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 600;
+        padding: 12px;
+        border-bottom: 1px solid $gray;
+
+        span {
+          font-weight: 400;
+
+          a {
+            color: $dark;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+
+            &:hover {
+              color: $green-dark;
+            }
+          }
+        }
+
+        &:last-child {
+          border-bottom: 0;
+        }
+      }
+    }
+
+    button {
+      align-self: flex-end;
+      background-color: $red;
+      color: $white;
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 6px;
     }
   }
 }
