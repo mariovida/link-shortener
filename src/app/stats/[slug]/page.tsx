@@ -75,31 +75,29 @@ export default function StatsPage() {
     <section className={styles.statsPage}>
       <div className="wrapper">
         <div className={styles.statsPageBlock}>
-          <h1>Stats for {stats.slug}</h1>
-          <p>
-            <strong>Original URL:</strong>{" "}
-            <a href={stats.url} target="_blank" rel="noopener noreferrer">
-              {stats.url}
-            </a>
-          </p>
-          <p>
-            <strong>Clicks:</strong> {stats.clicks}
-          </p>
-          <p>
-            <strong>Created At:</strong>{" "}
-            {new Date(stats.created_at).toLocaleString()}
-          </p>
-
+          <h1>Stats for {API_BASE_URL + "/" + stats.slug}</h1>
+          <div className={styles.statsPageInfo}>
+            <p>
+              Original URL
+              <span>
+                <a href={stats.url} target="_blank" rel="noopener noreferrer">
+                  {stats.url}
+                </a>
+              </span>
+            </p>
+            <p>
+              Clicks
+              <span>{stats.clicks}</span>
+            </p>
+            <p>
+              Created at
+              <span> {new Date(stats.created_at).toLocaleString()}</span>
+            </p>
+          </div>
           <button
             onClick={handleDelete}
             disabled={loadingDelete}
             style={{
-              marginTop: "20px",
-              backgroundColor: "#e53e3e",
-              color: "white",
-              padding: "10px 15px",
-              border: "none",
-              borderRadius: "5px",
               cursor: loadingDelete ? "not-allowed" : "pointer",
             }}
           >
