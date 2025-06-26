@@ -1,6 +1,9 @@
 @use "./fonts.scss" as *;
+@use "./colors.scss" as *;
 
 .formContainer {
+  margin-top: 60px;
+
   h1,
   h2,
   p {
@@ -8,11 +11,10 @@
   }
   h1 {
     font-size: $fs-48;
-    padding-top: 48px;
   }
   h2 {
     font-size: $fs-32;
-    color: #1ec200;
+    color: $green-contrast;
   }
   p {
     font-family: $ff-secondary;
@@ -23,7 +25,7 @@
     display: flex;
     flex-direction: column;
     padding: 16px;
-    background-color: #fafafa;
+    background-color: $white;
     margin-top: 40px;
     border-radius: 16px;
 
@@ -48,19 +50,19 @@
 
     .button {
       padding: 6px 24px;
-      background-color: #044841;
-      color: #fafafa;
+      background-color: $green-dark;
+      color: $white;
       border: none;
       border-radius: 10px;
       cursor: pointer;
       transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: #066057;
+        background-color: $green;
       }
 
       &:disabled {
-        background-color: #066057;
+        background-color: $green;
         cursor: not-allowed;
       }
     }
@@ -68,7 +70,7 @@
     .optionsToggle {
       background-color: transparent;
       border: 0;
-      color: #044841;
+      color: $green-dark;
       cursor: pointer;
       font-size: $fs-16;
       margin: 16px 0 8px;
@@ -78,7 +80,7 @@
       display: flex;
       flex-direction: column;
       padding: 0 16px;
-      background-color: #ced4da;
+      background-color: $gray;
       border-radius: 12px;
       opacity: 1;
       max-height: 0;
@@ -104,7 +106,7 @@
         label {
           font-size: $fs-15;
           font-weight: 600;
-          color: #262626;
+          color: $dark;
           margin-bottom: 4px;
         }
 
@@ -138,7 +140,7 @@
 
   .resultContainer {
     padding: 16px;
-    background-color: #fafafa;
+    background-color: $white;
     margin-top: 40px;
     border-radius: 16px;
 
@@ -149,7 +151,7 @@
       font-weight: 500;
       text-align: unset;
       font-size: $fs-16;
-      color: #262626;
+      color: $dark;
       margin-top: 0;
 
       p {
@@ -163,8 +165,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-color: #ffffff;
-        color: #044841;
+        background-color: $pure-white;
+        color: $green-dark;
         text-align: center;
         text-decoration: none;
         font-size: $fs-18;
@@ -179,8 +181,8 @@
         user-select: none;
 
         button {
-          background-color: #044841;
-          color: #ffffff;
+          background-color: $green-dark;
+          color: $pure-white;
           padding: 12px 16px;
           border: 0;
           border-radius: 10px;
@@ -188,7 +190,7 @@
           transition: background-color 0.3s ease;
 
           &:hover {
-            background-color: #066057;
+            background-color: $green;
           }
         }
       }
@@ -197,7 +199,7 @@
 }
 
 .error {
-  color: #dc3545;
+  color: $red;
   margin-top: 1rem;
 }
 
@@ -207,7 +209,7 @@
   left: 50%;
   transform: translateX(-50%);
   background: #fafafa;
-  color: #262626;
+  color: $dark;
   padding: 16px 32px;
   border-radius: 64px;
   font-size: $fs-16;
