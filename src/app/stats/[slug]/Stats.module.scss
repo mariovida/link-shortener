@@ -1,3 +1,6 @@
+@use "@/styles/fonts.scss" as *;
+@use "@/styles/colors.scss" as *;
+
 .statsPage,
 .errorBlock {
   padding-top: 60px;
@@ -5,9 +8,13 @@
 
 .statsPage {
   .statsPageBlock {
-    padding: 16px;
-    color: #262626;
-    background-color: #fafafa;
-    border-radius: 16px;
+    padding: 24px;
+    color: $dark;
+    background-color: $white;
+    border-radius: 24px;
+
+    h1 {
+      font-size: $fs-24;
+    }
   }
 }
