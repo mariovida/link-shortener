@@ -73,11 +73,9 @@ export default function StatsPage() {
 
   return (
     <section className={styles.statsPage}>
-      <div className="wrapper" style={{ maxWidth: "480px" }}>
+      <div className="wrapper">
         <div className={styles.statsPageBlock}>
-          <h1>
-            Stats for <code>{stats.slug}</code>
-          </h1>
+          <h1>Stats for {stats.slug}</h1>
           <p>
             <strong>Original URL:</strong>{" "}
             <a href={stats.url} target="_blank" rel="noopener noreferrer">
