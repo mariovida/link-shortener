@@ -8,7 +8,7 @@ interface LinkStats {
   slug: string;
   url: string;
   clicks: number;
-  createdAt: string;
+  created_at: string;
 }
 
 export default function StatsPage() {
@@ -73,41 +73,43 @@ export default function StatsPage() {
 
   return (
     <section className={styles.statsPage}>
-      <div className="wrapper">
-        <h1>
-          Stats for <code>{stats.slug}</code>
-        </h1>
-        <p>
-          <strong>Original URL:</strong>{" "}
-          <a href={stats.url} target="_blank" rel="noopener noreferrer">
-            {stats.url}
-          </a>
-        </p>
-        <p>
-          <strong>Clicks:</strong> {stats.clicks}
-        </p>
-        <p>
-          <strong>Created At:</strong>{" "}
-          {new Date(stats.createdAt).toLocaleString()}
-        </p>
+      <div className="wrapper" style={{ maxWidth: "480px" }}>
+        <div className={styles.statsPageBlock}>
+          <h1>
+            Stats for <code>{stats.slug}</code>
+          </h1>
+          <p>
+            <strong>Original URL:</strong>{" "}
+            <a href={stats.url} target="_blank" rel="noopener noreferrer">
+              {stats.url}
+            </a>
+          </p>
+          <p>
+            <strong>Clicks:</strong> {stats.clicks}
+          </p>
+          <p>
+            <strong>Created At:</strong>{" "}
+            {new Date(stats.created_at).toLocaleString()}
+          </p>
 
-        <button
-          onClick={handleDelete}
-          disabled={loadingDelete}
-          style={{
-            marginTop: "20px",
-            backgroundColor: "#e53e3e",
-            color: "white",
-            padding: "10px 15px",
-            border: "none",
-            borderRadius: "5px",
-            cursor: loadingDelete ? "not-allowed" : "pointer",
-          }}
-        >
-          {loadingDelete ? "Deleting..." : "Delete URL"}
-        </button>
+          <button
+            onClick={handleDelete}
+            disabled={loadingDelete}
+            style={{
+              marginTop: "20px",
+              backgroundColor: "#e53e3e",
+              color: "white",
+              padding: "10px 15px",
+              border: "none",
+              borderRadius: "5px",
+              cursor: loadingDelete ? "not-allowed" : "pointer",
+            }}
+          >
+            {loadingDelete ? "Deleting..." : "Delete URL"}
+          </button>
 
-        {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+          {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+        </div>
       </div>
     </section>
   );
