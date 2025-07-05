@@ -8,6 +8,7 @@ export default function UrlShortener() {
   const [expiresAt, setExpiresAt] = useState("");
   const [showOptions, setShowOptions] = useState(false);
   const [shortUrl, setShortUrl] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
@@ -57,6 +58,7 @@ export default function UrlShortener() {
         body: JSON.stringify({
           url: formattedUrl,
           expiresAt: expiresAt || null,
+          password: password || null,
         }),
       });
 
@@ -119,13 +121,24 @@ export default function UrlShortener() {
                 showOptions ? styles.open : ""
               }`}
             >
-              <label>Expiration date</label>
-              <input
-                type="datetime-local"
-                value={expiresAt}
-                onChange={(e) => setExpiresAt(e.target.value)}
-                className={styles.input}
-              />
+              <div className={styles.accordionContentGroup}>
+                <label>Expiration date</label>
+                <input
+                  type="datetime-local"
+                  value={expiresAt}
+                  onChange={(e) => setExpiresAt(e.target.value)}
+                  className={styles.input}
+                />
+              </div>
+              <div className={styles.accordionContentGroup}>
+                <label>Password</label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Protect your link"
+                />
+              </div>
             </div>
           </form>
         )}
