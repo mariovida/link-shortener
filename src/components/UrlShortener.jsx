@@ -83,46 +83,52 @@ export default function UrlShortener() {
           and free.
         </p>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.formGroup}>
-            <input
-              type="url"
-              placeholder="Paste your URL here"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              required
-              className={styles.input}
-            />
+        {!shortUrl && (
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.formGroup}>
+              <input
+                type="url"
+                placeholder="Paste your URL here"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                required
+                className={styles.input}
+              />
 
-            <button type="submit" disabled={loading} className={styles.button}>
-              {loading ? "Generating..." : "Generate"}
-            </button>
-          </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className={styles.button}
+              >
+                {loading ? "Generating..." : "Generate"}
+              </button>
+            </div>
 
-          <div className={styles.formGroup}>
-            <button
-              type="button"
-              onClick={() => setShowOptions(!showOptions)}
-              className={styles.optionsToggle}
+            <div className={styles.formGroup}>
+              <button
+                type="button"
+                onClick={() => setShowOptions(!showOptions)}
+                className={styles.optionsToggle}
+              >
+                {showOptions ? "Additional options" : "Additional options"}
+              </button>
+            </div>
+
+            <div
+              className={`${styles.accordionContent} ${
+                showOptions ? styles.open : ""
+              }`}
             >
-              {showOptions ? "Additional options" : "Additional options"}
-            </button>
-          </div>
-
-          <div
-            className={`${styles.accordionContent} ${
-              showOptions ? styles.open : ""
-            }`}
-          >
-            <label>Expiration date</label>
-            <input
-              type="datetime-local"
-              value={expiresAt}
-              onChange={(e) => setExpiresAt(e.target.value)}
-              className={styles.input}
-            />
-          </div>
-        </form>
+              <label>Expiration date</label>
+              <input
+                type="datetime-local"
+                value={expiresAt}
+                onChange={(e) => setExpiresAt(e.target.value)}
+                className={styles.input}
+              />
+            </div>
+          </form>
+        )}
 
         {error && <p className={styles.error}>{error}</p>}
 
