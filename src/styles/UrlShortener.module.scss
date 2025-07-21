@@ -135,21 +135,36 @@
         margin: 0;
       }
 
-      button {
-        display: block;
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         background-color: #ffffff;
         color: #044841;
         text-align: center;
         text-decoration: none;
         font-size: $fs-20;
         font-weight: 700;
-        padding: 12px 16px;
+        padding: 16px;
         margin-top: 8px;
         border: 1px solid #ced4da;
         border-radius: 12px;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
           rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-        cursor: pointer;
+
+        button {
+          background-color: #044841;
+          color: #ffffff;
+          padding: 12px 16px;
+          border: 0;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: #066057;
+          }
+        }
       }
     }
   }
@@ -173,7 +188,7 @@
   font-weight: 600;
   white-space: nowrap;
   opacity: 0;
-  animation: fadeInOut 3s ease;
+  animation: fadeInOut 2s ease;
 }
 
 @keyframes fadeInOut {
