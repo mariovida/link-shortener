@@ -130,17 +130,19 @@ export default function UrlShortener() {
           <div className={styles.resultContainer}>
             <div className={styles.result}>
               <p>Your URL is ready!</p>
-              <button
-                className={styles.copyButton}
-                onClick={() => {
-                  navigator.clipboard.writeText(shortUrl).then(() => {
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 3000);
-                  });
-                }}
-              >
+              <span className={styles.copyButton}>
                 {shortUrl}
-              </button>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(shortUrl).then(() => {
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2000);
+                    });
+                  }}
+                >
+                  Copy link
+                </button>
+              </span>
             </div>
           </div>
         )}
