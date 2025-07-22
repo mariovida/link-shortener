@@ -10,6 +10,7 @@ export default function UrlShortener() {
   const [shortUrl, setShortUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -62,6 +63,8 @@ export default function UrlShortener() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Something went wrong");
 
+      setExpiresAt("");
+      setShowOptions(false);
       setShortUrl(data.shortUrl);
     } catch (err) {
       setError(err.message);
@@ -125,15 +128,25 @@ export default function UrlShortener() {
 
         {shortUrl && (
           <div className={styles.resultContainer}>
-            <p className={styles.result}>
-              Your new URL:{" "}
-              <a href={shortUrl} target="_blank" rel="noopener noreferrer">
+            <div className={styles.result}>
+              <p>Your URL is ready!</p>
+              <button
+                className={styles.copyButton}
+                onClick={() => {
+                  navigator.clipboard.writeText(shortUrl).then(() => {
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 3000);
+                  });
+                }}
+              >
                 {shortUrl}
-              </a>
-            </p>
+              </button>
+            </div>
           </div>
         )}
       </div>
+
+      {copied && <span className={styles.tooltip}>Copied!</span>}
     </section>
   );
 }
