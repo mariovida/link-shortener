@@ -106,17 +106,19 @@ export default function UrlShortener() {
             </button>
           </div>
 
-          {showOptions && (
-            <div className={styles.accordionContent}>
-              <label>Expiration date</label>
-              <input
-                type="datetime-local"
-                value={expiresAt}
-                onChange={(e) => setExpiresAt(e.target.value)}
-                className={styles.input}
-              />
-            </div>
-          )}
+          <div
+            className={`${styles.accordionContent} ${
+              showOptions ? styles.open : ""
+            }`}
+          >
+            <label>Expiration date</label>
+            <input
+              type="datetime-local"
+              value={expiresAt}
+              onChange={(e) => setExpiresAt(e.target.value)}
+              className={styles.input}
+            />
+          </div>
         </form>
 
         {error && <p className={styles.error}>{error}</p>}
