@@ -5,6 +5,8 @@ import styles from "../styles/UrlShortener.module.scss";
 
 export default function UrlShortener() {
   const [url, setUrl] = useState("");
+  const [expiresAt, setExpiresAt] = useState("");
+  const [showOptions, setShowOptions] = useState(false);
   const [shortUrl, setShortUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -40,13 +42,21 @@ export default function UrlShortener() {
       return;
     }
 
+    if (expiresAt && new Date(expiresAt) <= new Date()) {
+      setError("Expiration date must be in the future");
+      return;
+    }
+
     setLoading(true);
 
     try {
       const res = await fetch(`${API_BASE_URL}/api/shorten`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: formattedUrl }),
+        body: JSON.stringify({
+          url: formattedUrl,
+          expiresAt: expiresAt || null,
+        }),
       });
 
       const data = await res.json();
@@ -71,17 +81,42 @@ export default function UrlShortener() {
         </p>
 
         <form onSubmit={handleSubmit} className={styles.form}>
-          <input
-            type="url"
-            placeholder="Paste your URL here"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            required
-            className={styles.input}
-          />
-          <button type="submit" disabled={loading} className={styles.button}>
-            {loading ? "Generating..." : "Generate"}
-          </button>
+          <div className={styles.formGroup}>
+            <input
+              type="url"
+              placeholder="Paste your URL here"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              required
+              className={styles.input}
+            />
+
+            <button type="submit" disabled={loading} className={styles.button}>
+              {loading ? "Generating..." : "Generate"}
+            </button>
+          </div>
+
+          <div className={styles.formGroup}>
+            <button
+              type="button"
+              onClick={() => setShowOptions(!showOptions)}
+              className={styles.optionsToggle}
+            >
+              {showOptions ? "Additional options" : "Additional options"}
+            </button>
+          </div>
+
+          {showOptions && (
+            <div className={styles.accordionContent}>
+              <label>Expiration date</label>
+              <input
+                type="datetime-local"
+                value={expiresAt}
+                onChange={(e) => setExpiresAt(e.target.value)}
+                className={styles.input}
+              />
+            </div>
+          )}
         </form>
 
         {error && <p className={styles.error}>{error}</p>}
