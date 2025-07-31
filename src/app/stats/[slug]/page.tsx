@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
+import styles from "./Stats.module.scss";
 
 interface LinkStats {
   slug: string;
@@ -53,17 +54,26 @@ export default function StatsPage() {
     }
   }
 
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (error)
+    return (
+      <div className="wrapper">
+        <div className={styles.errorBlock}>
+          <p>{error}</p>
+        </div>
+      </div>
+    );
   if (!stats)
     return (
       <div className="wrapper">
-        <p>Loading...</p>
+        <div className={styles.errorBlock}>
+          <p>Loading...</p>
+        </div>
       </div>
     );
 
   return (
-    <section>
-      <div className="wrapper" style={{ padding: "20px" }}>
+    <section className={styles.statsPage}>
+      <div className="wrapper">
         <h1>
           Stats for <code>{stats.slug}</code>
         </h1>
