@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 interface LinkStats {
   slug: string;
@@ -12,8 +12,10 @@ interface LinkStats {
 
 export default function StatsPage() {
   const { slug } = useParams<{ slug: string }>();
+  const router = useRouter();
   const [stats, setStats] = useState<LinkStats | null>(null);
   const [error, setError] = useState("");
+  const [loadingDelete, setLoadingDelete] = useState(false);
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   useEffect(() => {
@@ -31,6 +33,26 @@ export default function StatsPage() {
     if (slug) fetchStats();
   }, [slug]);
 
+  async function handleDelete() {
+    if (!confirm("Are you sure you want to delete this URL?")) return;
+
+    setLoadingDelete(true);
+    setError("");
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/links/${slug}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to delete");
+
+      router.push("/");
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoadingDelete(false);
+    }
+  }
+
   if (error) return <p style={{ color: "red" }}>{error}</p>;
   if (!stats)
     return (
@@ -41,25 +63,41 @@ export default function StatsPage() {
 
   return (
     <section>
-      <div className="wrapper">
-        <div style={{ padding: "20px" }}>
-          <h1>
-            Stats for <code>{stats.slug}</code>
-          </h1>
-          <p>
-            <strong>Original URL:</strong>{" "}
-            <a href={stats.url} target="_blank" rel="noopener noreferrer">
-              {stats.url}
-            </a>
-          </p>
-          <p>
-            <strong>Clicks:</strong> {stats.clicks}
-          </p>
-          <p>
-            <strong>Created At:</strong>{" "}
-            {new Date(stats.createdAt).toLocaleString()}
-          </p>
-        </div>
+      <div className="wrapper" style={{ padding: "20px" }}>
+        <h1>
+          Stats for <code>{stats.slug}</code>
+        </h1>
+        <p>
+          <strong>Original URL:</strong>{" "}
+          <a href={stats.url} target="_blank" rel="noopener noreferrer">
+            {stats.url}
+          </a>
+        </p>
+        <p>
+          <strong>Clicks:</strong> {stats.clicks}
+        </p>
+        <p>
+          <strong>Created At:</strong>{" "}
+          {new Date(stats.createdAt).toLocaleString()}
+        </p>
+
+        <button
+          onClick={handleDelete}
+          disabled={loadingDelete}
+          style={{
+            marginTop: "20px",
+            backgroundColor: "#e53e3e",
+            color: "white",
+            padding: "10px 15px",
+            border: "none",
+            borderRadius: "5px",
+            cursor: loadingDelete ? "not-allowed" : "pointer",
+          }}
+        >
+          {loadingDelete ? "Deleting..." : "Delete URL"}
+        </button>
+
+        {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
       </div>
     </section>
   );
