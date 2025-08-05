@@ -11,6 +11,14 @@ export default function UrlShortener() {
 
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+  function formatUrl(input) {
+    let formatted = input.trim();
+    if (!/^https?:\/\//i.test(formatted)) {
+      formatted = "https://" + formatted;
+    }
+    return formatted;
+  }
+
   function isValidUrl(string) {
     try {
       new URL(string);
@@ -25,8 +33,10 @@ export default function UrlShortener() {
     setError("");
     setShortUrl("");
 
-    if (!isValidUrl(url)) {
-      setError("Please enter a valid URL, including http:// or https://");
+    const formattedUrl = formatUrl(url);
+
+    if (!isValidUrl(formattedUrl)) {
+      setError("Please enter a valid URL");
       return;
     }
 
@@ -36,7 +46,7 @@ export default function UrlShortener() {
       const res = await fetch(`${API_BASE_URL}/api/shorten`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url: formattedUrl }),
       });
 
       const data = await res.json();
