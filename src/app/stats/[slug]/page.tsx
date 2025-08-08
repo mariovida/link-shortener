@@ -32,26 +32,35 @@ export default function StatsPage() {
   }, [slug]);
 
   if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (!stats) return <p>Loading...</p>;
+  if (!stats)
+    return (
+      <div className="wrapper">
+        <p>Loading...</p>
+      </div>
+    );
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>
-        Stats for <code>{stats.slug}</code>
-      </h1>
-      <p>
-        <strong>Original URL:</strong>{" "}
-        <a href={stats.url} target="_blank" rel="noopener noreferrer">
-          {stats.url}
-        </a>
-      </p>
-      <p>
-        <strong>Clicks:</strong> {stats.clicks}
-      </p>
-      <p>
-        <strong>Created At:</strong>{" "}
-        {new Date(stats.createdAt).toLocaleString()}
-      </p>
-    </div>
+    <section>
+      <div className="wrapper">
+        <div style={{ padding: "20px" }}>
+          <h1>
+            Stats for <code>{stats.slug}</code>
+          </h1>
+          <p>
+            <strong>Original URL:</strong>{" "}
+            <a href={stats.url} target="_blank" rel="noopener noreferrer">
+              {stats.url}
+            </a>
+          </p>
+          <p>
+            <strong>Clicks:</strong> {stats.clicks}
+          </p>
+          <p>
+            <strong>Created At:</strong>{" "}
+            {new Date(stats.createdAt).toLocaleString()}
+          </p>
+        </div>
+      </div>
+    </section>
   );
 }
