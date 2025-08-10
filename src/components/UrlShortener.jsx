@@ -11,11 +11,26 @@ export default function UrlShortener() {
 
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+  function isValidUrl(string) {
+    try {
+      new URL(string);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
-    setLoading(true);
     setError("");
     setShortUrl("");
+
+    if (!isValidUrl(url)) {
+      setError("Please enter a valid URL, including http:// or https://");
+      return;
+    }
+
+    setLoading(true);
 
     try {
       const res = await fetch(`${API_BASE_URL}/api/shorten`, {
@@ -41,7 +56,7 @@ export default function UrlShortener() {
         <h1>Shorten & share your links</h1>
         <h2>Fast. Clean. Reliable.</h2>
         <p className={styles.subtitle}>
-          Turn long URLs into short links you can share anywhere - fast, simple
+          Turn long URLs into short links you can share anywhere — fast, simple
           and free.
         </p>
 
