@@ -1,0 +1,26 @@
+@import "./fonts.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $ff-primary;
+  font-weight: 400;
+  background-color: #044841;
+  color: #fafafa;
+}
+.wrapper {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+input {
+  font-family: $ff-primary;
+  font-weight: 500;
+}
+button {
+  font-family: $ff-primary;
+  font-weight: 600;
+}
